@@ -1,6 +1,11 @@
-const data = { index: 1, description: '', completed: false };
+const setStorageAndReloadPage = (todos) => {
+  localStorage.setItem('todos', JSON.stringify(todos));
+  window.location.reload();
+};
 
 export const addTodo = (todosFromLocalStorage) => {
+  const data = { index: 1, description: '', completed: false };
+
   const inputField = document.querySelector('#new-todo');
   const addBtn = document.querySelector('.add-btn');
 
@@ -11,8 +16,7 @@ export const addTodo = (todosFromLocalStorage) => {
   addBtn.addEventListener('click', () => {
     todosFromLocalStorage.push(data);
     todosFromLocalStorage[todosFromLocalStorage.length - 1].index = todosFromLocalStorage.length;
-    localStorage.setItem('todos', JSON.stringify(todosFromLocalStorage));
-    window.location.reload();
+    setStorageAndReloadPage(todosFromLocalStorage);
   });
 };
 
@@ -32,8 +36,7 @@ export const deleteTodo = (todosFromLocalStorage) => {
       listOfTodos.forEach((todo, index) => {
         todo.index = index + 1;
       });
-      localStorage.setItem('todos', JSON.stringify(listOfTodos));
-      window.location.reload();
+      setStorageAndReloadPage(listOfTodos);
     });
   });
 };
@@ -81,8 +84,7 @@ export const clearCompletedTodos = (todosFromLocalStorage) => {
         newTodoList.forEach((todo, index) => {
           todo.index = index + 1;
         });
-        localStorage.setItem('todos', JSON.stringify(newTodoList));
-        window.location.reload();
+        setStorageAndReloadPage(newTodoList);
       }
     });
   });
